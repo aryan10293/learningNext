@@ -1,0 +1,50 @@
+import express, { Router } from "express";
+import http from "http";
+import session from "express-session";
+import connectMongo from "connect-mongo";
+import flash from "express-flash";
+import logger from "morgan";
+import cors from "cors";
+import cookieParser from "cookie-parser";
+import dotenv from "dotenv";
+dotenv.config({ path: "./config/.env" });
+// import createTables from "./model/users";
+// import createGoalTable from "./model/goals";
+import * as bodyParser from 'body-parser';
+import WebSocket, { WebSocketServer } from 'ws';
+const app = express();
+const server = http.createServer(app);
+const wss = new WebSocketServer({ server });
+const MongoStore = connectMongo(session);
+
+const router: Router = express.Router();
+
+router.use(bodyParser.text());
+
+
+import mainRoutes from "./routes/main";
+
+
+app.use(express.urlencoded({ extended: true}));
+app.use(express.json({limit: '50mb'}));
+
+app.use(cors({
+  origin: ['https://learning-next-znkh.vercel.app', 'http://localhost:3000'],
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'],
+  credentials: true
+}));
+
+app.use(logger("dev"));
+
+app.use(cookieParser("keyboard cat"));
+
+
+
+app.use(flash());
+
+app.use("/", mainRoutes);
+
+
+server.listen(process.env.PORT || 2040, () => {
+  console.log(`Server is running, you better catch it! on http://localhost:${process.env.PORT || 2040}`);
+});

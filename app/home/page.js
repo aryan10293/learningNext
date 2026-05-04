@@ -26,6 +26,15 @@ export default function Home() {
 
   const women = "Women's";
   const men = "Men's";
+    const handleTest = async () => {
+      try {
+        const response = await fetch("http://localhost:2050/test");
+        const data = await response.json();
+        console.log(data);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    }
   return (
     <div className="activewear-landing">
       {/* Navigation */}
@@ -35,7 +44,7 @@ export default function Home() {
           <ul className="nav-links">
           {/* <li><a href="#new">New Arrivals</a></li> */}
             <li><a href="/admin">Admin</a></li>
-            <li><a href="#collections">Collections</a></li>
+            <li><button onClick={handleTest}>testing</button></li>
             <li><a href="#about">About</a></li>
             <li><a href="#contact">Contact</a></li>
           </ul>

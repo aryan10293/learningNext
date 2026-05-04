@@ -1,8 +1,8 @@
-// import dotenv from "dotenv";
-// dotenv.config({ path: "./config/.env" });
+import dotenv from "dotenv";
+dotenv.config({ path: "./config/.env" });
 
 import { Request, Response } from "express";
-// import pool from "../config/neon";
+import pool from "../config/neon";
 // import verifyPassword from "../config/verfiyPassword";
 // import jwt from "../config/jwt";
 import validator from "validator";
@@ -10,6 +10,8 @@ import validator from "validator";
 const auth = {
     doesThisWork: async (req: Request, res: Response) => {
         try {
+            await pool.query("SELECT NOW()"); // Test query to check database connection
+            console.log("Database connection successful");
             res.status(200).json({ message: "Hello from the main controller!" });
         } catch (error) {
             console.error("Error in main controller:", error);

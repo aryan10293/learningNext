@@ -1,6 +1,6 @@
 import dotenv from "dotenv";
-dotenv.config({ path: "./config/.env" });
 import pkg from 'pg';
+dotenv.config({ path: "./config/.env" });
 const { Pool } = pkg;
 const pool = new Pool({
     connectionString: process.env.DATABASE_URL,

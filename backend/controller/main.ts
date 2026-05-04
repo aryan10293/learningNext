@@ -1,5 +1,5 @@
-import dotenv from "dotenv";
-dotenv.config({ path: "./config/.env" });
+// import dotenv from "dotenv";
+// dotenv.config({ path: "./config/.env" });
 
 import { Request, Response } from "express";
 // import pool from "../config/neon";

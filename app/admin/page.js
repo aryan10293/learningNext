@@ -1,27 +1,28 @@
 'use client';
 import './admin.css';
+import getLS from '../../hooks/getLs';
 import React from 'react';
 
 export default function Admin() {
-  const [mainHeader, setMainHeader] = React.useState(localStorage.getItem('mainHeader') || 'Move With Purpose');
-  const [subHeader, setSubHeader] = React.useState(localStorage.getItem('subHeader') || 'Premium activewear designed for your lifestyle');
-  const [heroBackground, setHeroBackground] = React.useState(localStorage.getItem('heroBackground') || 'https://cdn.mos.cms.futurecdn.net/ufy8gy6x2tRtG4jYZLtVeF-1920-80.jpg.webp');
-  const [saleBadge, setSaleBadge] = React.useState(localStorage.getItem('saleBadge') || 'FLASH SALE');
-  const [saleHeading, setSaleHeading] = React.useState(localStorage.getItem('saleHeading') || 'Up to 40% Off');
-  const [saleDescription, setSaleDescription] = React.useState(localStorage.getItem('saleDescription') || 'Limited time offer on select collections');
-  const [collectionsTitle, setCollectionsTitle] = React.useState(localStorage.getItem('collectionsTitle') || 'Featured Collections');
-  const [collection1Name, setCollection1Name] = React.useState(localStorage.getItem('collection1Name') || "Women's Essentials");
-  const [collection1Desc, setCollection1Desc] = React.useState(localStorage.getItem('collection1Desc') || 'Timeless basics for every day');
-  const [collection2Name, setCollection2Name] = React.useState(localStorage.getItem('collection2Name') || "Men's Performance");
-  const [collection2Desc, setCollection2Desc] = React.useState(localStorage.getItem('collection2Desc') || 'High-performance gear for athletes');
-  const [collection3Name, setCollection3Name] = React.useState(localStorage.getItem('collection3Name') || "Sustainable Styles");
-  const [collection3Desc, setCollection3Desc] = React.useState(localStorage.getItem('collection3Desc') || 'Eco-friendly activewear made from recycled materials');
-  const [collection4Name, setCollection4Name] = React.useState(localStorage.getItem('collection4Name') || "Limited Edition");
-  const [collection4Desc, setCollection4Desc] = React.useState(localStorage.getItem('collection4Desc') || 'Exclusive drops and collaborations');
-  const [collection1Image, setCollection1Image] = React.useState(localStorage.getItem('collection1Image') || 'https://comfrt.com/fast-image/comfrt/files/1_b6d483fd-43ed-4e9e-b456-8f916457862a.jpg?v=1761764267');
-  const [collection2Image, setCollection2Image] = React.useState(localStorage.getItem('collection2Image') || 'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=500&h=500&fit=crop');
-  const [collection3Image, setCollection3Image] = React.useState(localStorage.getItem('collection3Image') || 'https://alignwithglow.com/wp-content/uploads/2024/09/yoga-wellness-mindfulness-syracuse-ny.jpg');
-  const [collection4Image, setCollection4Image] = React.useState(localStorage.getItem('collection4Image') || 'https://images.unsplash.com/photo-1491553895911-0055eca6402d?w=500&h=500&fit=crop)');
+  const [mainHeader, setMainHeader] = React.useState(getLS('mainHeader', 'Move With Purpose'));
+  const [subHeader, setSubHeader] = React.useState(getLS('subHeader', 'Premium activewear designed for your lifestyle'));
+  const [heroBackground, setHeroBackground] = React.useState(getLS('heroBackground', 'https://cdn.mos.cms.futurecdn.net/ufy8gy6x2tRtG4jYZLtVeF-1920-80.jpg.webp'));
+  const [saleBadge, setSaleBadge] = React.useState(getLS('saleBadge', 'FLASH SALE'));
+  const [saleHeading, setSaleHeading] = React.useState(getLS('saleHeading', 'Up to 40% Off'));
+  const [saleDescription, setSaleDescription] = React.useState(getLS('saleDescription', 'Limited time offer on select collections'));
+  const [collectionsTitle, setCollectionsTitle] = React.useState(getLS('collectionsTitle', 'Featured Collections'));
+  const [collection1Name, setCollection1Name] = React.useState(getLS('collection1Name', "Women's Essentials"));
+  const [collection1Desc, setCollection1Desc] = React.useState(getLS('collection1Desc', 'Timeless basics for every day'));
+  const [collection2Name, setCollection2Name] = React.useState(getLS('collection2Name', "Men's Performance"));
+  const [collection2Desc, setCollection2Desc] = React.useState(getLS('collection2Desc', 'High-performance gear for athletes'));
+  const [collection3Name, setCollection3Name] = React.useState(getLS('collection3Name', "Sustainable Styles"));
+  const [collection3Desc, setCollection3Desc] = React.useState(getLS('collection3Desc', 'Eco-friendly activewear made from recycled materials'));
+  const [collection4Name, setCollection4Name] = React.useState(getLS('collection4Name', "Limited Edition"));
+  const [collection4Desc, setCollection4Desc] = React.useState(getLS('collection4Desc', 'Exclusive drops and collaborations'));
+  const [collection1Image, setCollection1Image] = React.useState(getLS('collection1Image', 'https://comfrt.com/fast-image/comfrt/files/1_b6d483fd-43ed-4e9e-b456-8f916457862a.jpg?v=1761764267'));
+  const [collection2Image, setCollection2Image] = React.useState(getLS('collection2Image', 'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=500&h=500&fit=crop'));
+  const [collection3Image, setCollection3Image] = React.useState(getLS('collection3Image', 'https://alignwithglow.com/wp-content/uploads/2024/09/yoga-wellness-mindfulness-syracuse-ny.jpg'));
+  const [collection4Image, setCollection4Image] = React.useState(getLS('collection4Image', 'https://images.unsplash.com/photo-1491553895911-0055eca6402d?w=500&h=500&fit=crop'));
 
   const handleSubmit = (e) => {
     e.preventDefault();

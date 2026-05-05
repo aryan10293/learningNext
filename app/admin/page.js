@@ -24,30 +24,44 @@ export default function Admin() {
   const [collection3Image, setCollection3Image] = React.useState(getLS('collection3Image', 'https://alignwithglow.com/wp-content/uploads/2024/09/yoga-wellness-mindfulness-syracuse-ny.jpg'));
   const [collection4Image, setCollection4Image] = React.useState(getLS('collection4Image', 'https://images.unsplash.com/photo-1491553895911-0055eca6402d?w=500&h=500&fit=crop'));
 
-  const handleSubmit = (e) => {
+  const handleSubmitTwo = async (e) => {
     e.preventDefault();
-    localStorage.setItem('mainHeader', mainHeader);
-    localStorage.setItem('subHeader', subHeader);
-    localStorage.setItem('heroBackground', heroBackground);
-    localStorage.setItem('saleBadge', saleBadge);
-    localStorage.setItem('saleHeading', saleHeading);
-    localStorage.setItem('saleDescription', saleDescription);
-    localStorage.setItem('collectionsTitle', collectionsTitle);
-    localStorage.setItem('collection1Name', collection1Name);
-    localStorage.setItem('collection1Desc', collection1Desc);
-    localStorage.setItem('collection1Image', collection1Image);
-    localStorage.setItem('collection2Name', collection2Name);
-    localStorage.setItem('collection2Desc', collection2Desc);
-    localStorage.setItem('collection2Image', collection2Image);
-    localStorage.setItem('collection3Name', collection3Name);
-    localStorage.setItem('collection3Desc', collection3Desc);
-    localStorage.setItem('collection3Image', collection3Image);
-    localStorage.setItem('collection4Name', collection4Name);
-    localStorage.setItem('collection4Desc', collection4Desc);
-    localStorage.setItem('collection4Image', collection4Image);
+    const request = await fetch("http://localhost:2050/create-section", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ mainHeader }),
+    });
 
-    alert('Changes saved successfully!');
+    const data = await request.json();
+    alert(data.message);
   }
+
+  // const handleSubmit = (e) => {
+  //   e.preventDefault();
+  //   localStorage.setItem('mainHeader', mainHeader);
+  //   localStorage.setItem('subHeader', subHeader);
+  //   localStorage.setItem('heroBackground', heroBackground);
+  //   localStorage.setItem('saleBadge', saleBadge);
+  //   localStorage.setItem('saleHeading', saleHeading);
+  //   localStorage.setItem('saleDescription', saleDescription);
+  //   localStorage.setItem('collectionsTitle', collectionsTitle);
+  //   localStorage.setItem('collection1Name', collection1Name);
+  //   localStorage.setItem('collection1Desc', collection1Desc);
+  //   localStorage.setItem('collection1Image', collection1Image);
+  //   localStorage.setItem('collection2Name', collection2Name);
+  //   localStorage.setItem('collection2Desc', collection2Desc);
+  //   localStorage.setItem('collection2Image', collection2Image);
+  //   localStorage.setItem('collection3Name', collection3Name);
+  //   localStorage.setItem('collection3Desc', collection3Desc);
+  //   localStorage.setItem('collection3Image', collection3Image);
+  //   localStorage.setItem('collection4Name', collection4Name);
+  //   localStorage.setItem('collection4Desc', collection4Desc);
+  //   localStorage.setItem('collection4Image', collection4Image);
+
+  //   alert('Changes saved successfully!');
+  // }
   return (
     <div className="admin-container">
       {/* Navigation */}
@@ -71,7 +85,7 @@ export default function Admin() {
       {/* Main Form Container */}
       <section className="form-section">
         <div className="form-wrapper">
-          <form onSubmit={handleSubmit} className="product-form">
+          <form onSubmit={handleSubmitTwo} className="product-form">
             
             {/* Hero Banner Section */}
             <div className="form-group-section">

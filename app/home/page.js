@@ -6,35 +6,14 @@ import usePublishedPage from '../../hooks/getPublisedPage';
 
 export default function Home() {
   
-  const [mainHeader, setMainHeader] = useLocalStorage("mainHeader","Move With Purpose");
-  const [subHeader, setSubHeader] = useLocalStorage("subHeader","Premium activewear designed for your lifestyle");
-  const [heroBackground, setHeroBackground] = useLocalStorage("heroBackground","https://cdn.mos.cms.futurecdn.net/ufy8gy6x2tRtG4jYZLtVeF-1920-80.jpg.webp");
-  const [saleBadge, setSaleBadge] = useLocalStorage("saleBadge","FLASH SALE");
-  const [saleHeading, setSaleHeading] = useLocalStorage("saleHeading","Up to 40% Off");
-  const [saleDescription, setSaleDescription] = useLocalStorage("saleDescription","Limited time offer on select collections");
-  const [collectionsTitle, setCollectionsTitle] = useLocalStorage("collectionsTitle","Featured Collections");
-  const [collection1Name, setCollection1Name] = useLocalStorage("collection1Name","Women's Essentials");
-  const [collection1Desc, setCollection1Desc] = useLocalStorage("collection1Desc","Timeless basics for every day");
-  const [collection2Name, setCollection2Name] = useLocalStorage("collection2Name","Men's Performance");
-  const [collection2Desc, setCollection2Desc] = useLocalStorage("collection2Desc","High-performance gear for athletes");
-  const [collection3Name, setCollection3Name] = useLocalStorage("collection3Name","Sustainable Styles");
-  const [collection3Desc, setCollection3Desc] = useLocalStorage("collection3Desc","Eco-friendly activewear made from recycled materials");
-  const [collection4Name, setCollection4Name] = useLocalStorage("collection4Name","Limited Edition");
-  const [collection4Desc, setCollection4Desc] = useLocalStorage("collection4Desc","Exclusive drops and collaborations");
-  const [collection1Image, setCollection1Image] = useLocalStorage("collection1Image","https://comfrt.com/fast-image/comfrt/files/1_b6d483fd-43ed-4e9e-b456-8f916457862a.jpg?v=1761764267");
-  const [collection2Image, setCollection2Image] = useLocalStorage("collection2Image","https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=500&h=500&fit=crop");
-  const [collection3Image, setCollection3Image] = useLocalStorage("collection3Image","https://alignwithglow.com/wp-content/uploads/2024/09/yoga-wellness-mindfulness-syracuse-ny.jpg");
-  const [collection4Image, setCollection4Image] = useLocalStorage("collection4Image","https://images.unsplash.com/photo-1491553895911-0055eca6402d?w=500&h=500&fit=crop)");
 const { data, isLoading, error } = usePublishedPage();
 
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>Something went wrong</div>;
 
-  console.log(data)
-  const women = "Women's";
-  const men = "Men's";
+
     const handleTest = async () => {
-      try {``
+      try {
         const response = await fetch("http://localhost:2050/test");
         const data = await response.json();
         console.log(data);
@@ -64,11 +43,11 @@ const { data, isLoading, error } = usePublishedPage();
       </nav>
 
       {/* Hero Banner */}
-      <section className="hero-banner" style={{backgroundImage: `url(${heroBackground})`, backgroundSize: 'cover', backgroundPosition: 'center'}}>
+      <section className="hero-banner" style={{backgroundImage: `url(${data[0]?.backgroundimageurl})`, backgroundSize: 'cover', backgroundPosition: 'center'}}>
         <div className="hero-overlay"></div>
         <div className="hero-content">
-          <h1>{mainHeader}</h1>
-          <p>{subHeader}</p>
+          <h1>{data[0]?.mainheading}</h1>
+          <p>{data[0]?.subheading}</p>
           <button className="cta-button">Shop Now</button>
         </div>
       </section>
@@ -76,9 +55,9 @@ const { data, isLoading, error } = usePublishedPage();
       {/* Flash Sale Banner */}
       <section className="flash-sale">
         <div className="flash-sale-content">
-          <span className="sale-badge">{saleBadge}</span>
-          <h2>{saleHeading}</h2>
-          <p>{saleDescription}</p>
+          <span className="sale-badge">{data[0]?.salebadge}</span>
+          <h2>{data[0]?.saleheading}</h2>
+          <p>{data[0]?.saledescription}</p>
           <a href="#sale" className="sale-button">Shop Sale</a>
         </div>
       </section>
@@ -88,35 +67,35 @@ const { data, isLoading, error } = usePublishedPage();
         <h2>Featured Collections</h2>
         <div className="collection-grid">
           <div className="collection-card">
-            <div className="collection-image" style={{backgroundImage: `url(${collection1Image})`, backgroundSize: 'cover', backgroundPosition: 'center'}}>
-              <span className="collection-label">{collection1Name}</span>
+            <div className="collection-image" style={{backgroundImage: `url(${data[0]?.collectiononeimgurl})`, backgroundSize: 'cover', backgroundPosition: 'center'}}>
+              <span className="collection-label">{data[0]?.collectiononename}</span>
             </div>
-            <h3>{collection1Name}</h3>
-            <p>{collection1Desc}</p>
+            <h3>{data[0]?.collectiononenname}</h3>
+            <p>{data[0]?.collectiononedescription}</p>
           </div>
 
           <div className="collection-card">
-            <div className="collection-image" style={{backgroundImage: `url(${collection2Image})`, backgroundSize: 'cover', backgroundPosition: 'center'}}>
-              <span className="collection-label">{collection2Name}</span>
+            <div className="collection-image" style={{backgroundImage: `url(${data[0]?.collectiontwoimgurl})`, backgroundSize: 'cover', backgroundPosition: 'center'}}>
+              <span className="collection-label">{data[0]?.collectiontwoname}</span>
             </div>
-            <h3>{collection2Name}</h3>
-            <p>{collection2Desc}</p>
+            <h3>{data[0]?.collectiontwoname}</h3>
+            <p>{data[0]?.collectiontwodescription}</p>
           </div>
 
           <div className="collection-card">
-            <div className="collection-image" style={{backgroundImage: `url(${collection3Image})`, backgroundSize: 'cover', backgroundPosition: 'center'}}>
-              <span className="collection-label">{collection3Name}</span>
+            <div className="collection-image" style={{backgroundImage: `url(${data[0]?.collectionthreeimgurl})`, backgroundSize: 'cover', backgroundPosition: 'center'}}>
+              <span className="collection-label">{data[0]?.collection3name}</span>
             </div>
-            <h3>{collection3Name}</h3>
-            <p>{collection3Desc}</p>
+            <h3>{data[0]?.collection3threename}</h3>
+            <p>{data[0]?.collectionthreedescription}</p>
           </div>
 
           <div className="collection-card">
-            <div className="collection-image" style={{backgroundImage: `url(${collection4Image})`, backgroundSize: 'cover', backgroundPosition: 'center'}}>
-              <span className="collection-label">{collection4Name}</span>
+            <div className="collection-image" style={{backgroundImage: `url(${data[0]?.collectionfourimgurl})`, backgroundSize: 'cover', backgroundPosition: 'center'}}>
+              <span className="collection-label">{data[0]?.collectionfourname}</span>
             </div>
-            <h3>{collection4Name}</h3>
-            <p>{collection4Desc}</p>
+            <h3>{data[0]?.collectionfourname}</h3>
+            <p>{data[0]?.collectionfourdescription}</p>
           </div>
         </div>
       </section>

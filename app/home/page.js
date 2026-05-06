@@ -2,8 +2,10 @@
 import './home.css';
 import React from 'react';
 import  useLocalStorage  from '../../hooks/localStorage';
+import usePublishedPage from '../../hooks/getPublisedPage';
 
 export default function Home() {
+  
   const [mainHeader, setMainHeader] = useLocalStorage("mainHeader","Move With Purpose");
   const [subHeader, setSubHeader] = useLocalStorage("subHeader","Premium activewear designed for your lifestyle");
   const [heroBackground, setHeroBackground] = useLocalStorage("heroBackground","https://cdn.mos.cms.futurecdn.net/ufy8gy6x2tRtG4jYZLtVeF-1920-80.jpg.webp");
@@ -23,11 +25,16 @@ export default function Home() {
   const [collection2Image, setCollection2Image] = useLocalStorage("collection2Image","https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=500&h=500&fit=crop");
   const [collection3Image, setCollection3Image] = useLocalStorage("collection3Image","https://alignwithglow.com/wp-content/uploads/2024/09/yoga-wellness-mindfulness-syracuse-ny.jpg");
   const [collection4Image, setCollection4Image] = useLocalStorage("collection4Image","https://images.unsplash.com/photo-1491553895911-0055eca6402d?w=500&h=500&fit=crop)");
+const { data, isLoading, error } = usePublishedPage();
 
+  if (isLoading) return <div>Loading...</div>;
+  if (error) return <div>Something went wrong</div>;
+
+  console.log(data)
   const women = "Women's";
   const men = "Men's";
     const handleTest = async () => {
-      try {
+      try {``
         const response = await fetch("http://localhost:2050/test");
         const data = await response.json();
         console.log(data);

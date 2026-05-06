@@ -31,7 +31,27 @@ export default function Admin() {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ mainHeader }),
+      body: JSON.stringify({ 
+        mainHeader,
+        subHeader,
+        heroBackground,
+        saleBadge,
+        saleHeading,
+        saleDescription,
+        collectionsTitle,
+        collection1Name,
+        collection1Desc,
+        collection1Image,
+        collection2Name,
+        collection2Desc,
+        collection2Image,
+        collection3Name,
+        collection3Desc,
+        collection3Image,
+        collection4Name,
+        collection4Desc,
+        collection4Image
+       }),
     });
 
     const data = await request.json();

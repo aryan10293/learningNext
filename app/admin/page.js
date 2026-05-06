@@ -4,6 +4,7 @@ import getLS from '../../hooks/getLs';
 import React from 'react';
 
 export default function Admin() {
+  const [campaignName, setCampaignName] = React.useState(getLS('campaignName', 'Campaign 2025'));
   const [mainHeader, setMainHeader] = React.useState(getLS('mainHeader', 'Move With Purpose'));
   const [subHeader, setSubHeader] = React.useState(getLS('subHeader', 'Premium activewear designed for your lifestyle'));
   const [heroBackground, setHeroBackground] = React.useState(getLS('heroBackground', 'https://cdn.mos.cms.futurecdn.net/ufy8gy6x2tRtG4jYZLtVeF-1920-80.jpg.webp'));
@@ -32,6 +33,7 @@ export default function Admin() {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({ 
+        campaignName,
         mainHeader,
         subHeader,
         heroBackground,
@@ -106,6 +108,22 @@ export default function Admin() {
       <section className="form-section">
         <div className="form-wrapper">
           <form onSubmit={handleSubmitTwo} className="product-form">
+            
+            {/* Campaign Name Section */}
+            <div className="form-group-section">
+              <h2>Campaign</h2>
+              
+              <div className="form-group">
+                <label htmlFor="campaignName">Campaign Name</label>
+                <input 
+                  type="text" 
+                  id="campaignName" 
+                  value={campaignName}
+                  onChange={(e) => {setCampaignName(e.target.value)}}
+                  placeholder="Enter campaign name" 
+                />
+              </div>
+            </div>
             
             {/* Hero Banner Section */}
             <div className="form-group-section">

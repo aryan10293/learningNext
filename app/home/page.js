@@ -10,7 +10,6 @@ const { data, isLoading, error } = usePublishedPage();
 
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>Something went wrong</div>;
-  alert(error)
 
 
     const handleTest = async () => {

@@ -4,26 +4,26 @@ import getLS from '../../hooks/getLs';
 import React from 'react';
 
 export default function Admin() {
-  const [campaignName, setCampaignName] = React.useState(getLS('campaignName', 'Campaign 2025'));
-  const [mainHeader, setMainHeader] = React.useState(getLS('mainHeader', 'Move With Purpose'));
-  const [subHeader, setSubHeader] = React.useState(getLS('subHeader', 'Premium activewear designed for your lifestyle'));
-  const [heroBackground, setHeroBackground] = React.useState(getLS('heroBackground', 'https://cdn.mos.cms.futurecdn.net/ufy8gy6x2tRtG4jYZLtVeF-1920-80.jpg.webp'));
+  const [nameOfCampaign, setNameOfCampaign] = React.useState(getLS('campaignName', 'Campaign 2025'));
+  const [mainHeading, setMainHeading] = React.useState(getLS('mainHeading', 'Move With Purpose'));
+  const [subheading, setSubheading] = React.useState(getLS('subHeader', 'Premium activewear designed for your lifestyle'));
+  const [backgroundImageUrl, setBackgroundImageUrl] = React.useState(getLS('heroBackground', 'https://cdn.mos.cms.futurecdn.net/ufy8gy6x2tRtG4jYZLtVeF-1920-80.jpg.webp'));
   const [saleBadge, setSaleBadge] = React.useState(getLS('saleBadge', 'FLASH SALE'));
   const [saleHeading, setSaleHeading] = React.useState(getLS('saleHeading', 'Up to 40% Off'));
   const [saleDescription, setSaleDescription] = React.useState(getLS('saleDescription', 'Limited time offer on select collections'));
-  const [collectionsTitle, setCollectionsTitle] = React.useState(getLS('collectionsTitle', 'Featured Collections'));
-  const [collection1Name, setCollection1Name] = React.useState(getLS('collection1Name', "Women's Essentials"));
-  const [collection1Desc, setCollection1Desc] = React.useState(getLS('collection1Desc', 'Timeless basics for every day'));
-  const [collection2Name, setCollection2Name] = React.useState(getLS('collection2Name', "Men's Performance"));
-  const [collection2Desc, setCollection2Desc] = React.useState(getLS('collection2Desc', 'High-performance gear for athletes'));
-  const [collection3Name, setCollection3Name] = React.useState(getLS('collection3Name', "Sustainable Styles"));
-  const [collection3Desc, setCollection3Desc] = React.useState(getLS('collection3Desc', 'Eco-friendly activewear made from recycled materials'));
-  const [collection4Name, setCollection4Name] = React.useState(getLS('collection4Name', "Limited Edition"));
-  const [collection4Desc, setCollection4Desc] = React.useState(getLS('collection4Desc', 'Exclusive drops and collaborations'));
-  const [collection1Image, setCollection1Image] = React.useState(getLS('collection1Image', 'https://comfrt.com/fast-image/comfrt/files/1_b6d483fd-43ed-4e9e-b456-8f916457862a.jpg?v=1761764267'));
-  const [collection2Image, setCollection2Image] = React.useState(getLS('collection2Image', 'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=500&h=500&fit=crop'));
-  const [collection3Image, setCollection3Image] = React.useState(getLS('collection3Image', 'https://alignwithglow.com/wp-content/uploads/2024/09/yoga-wellness-mindfulness-syracuse-ny.jpg'));
-  const [collection4Image, setCollection4Image] = React.useState(getLS('collection4Image', 'https://images.unsplash.com/photo-1491553895911-0055eca6402d?w=500&h=500&fit=crop'));
+  const [sectionTitle, setSectionTitle] = React.useState(getLS('sectionTitle', 'Featured Collections'));
+  const [collectionOneName, setCollectionOneName] = React.useState(getLS('collection1Name', "Women's Essentials"));
+  const [collectionOneDescription, setCollectionOneDescription] = React.useState(getLS('collection1Desc', 'Timeless basics for every day'));
+  const [collectionTwoName, setCollectionTwoName] = React.useState(getLS('collection2Name', "Men's Performance"));
+  const [collectionTwoDescription, setCollectionTwoDescription] = React.useState(getLS('collection2Desc', 'High-performance gear for athletes'));
+  const [collectionThreeName, setCollectionThreeName] = React.useState(getLS('collection3Name', "Sustainable Styles"));
+  const [collectionThreeDescription, setCollectionThreeDescription] = React.useState(getLS('collection3Desc', 'Eco-friendly activewear made from recycled materials'));
+  const [collectionFourName, setCollectionFourName] = React.useState(getLS('collection4Name', "Limited Edition"));
+  const [collectionFourDescription, setCollectionFourDescription] = React.useState(getLS('collection4Desc', 'Exclusive drops and collaborations'));
+  const [collectionOneImgUrl, setCollectionOneImgUrl] = React.useState(getLS('collection1Image', 'https://comfrt.com/fast-image/comfrt/files/1_b6d483fd-43ed-4e9e-b456-8f916457862a.jpg?v=1761764267'));
+  const [collectionTwoImgUrl, setCollectionTwoImgUrl] = React.useState(getLS('collection2Image', 'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=500&h=500&fit=crop'));
+  const [collectionThreeImgUrl, setCollectionThreeImgUrl] = React.useState(getLS('collection3Image', 'https://alignwithglow.com/wp-content/uploads/2024/09/yoga-wellness-mindfulness-syracuse-ny.jpg'));
+  const [collectionFourImgUrl, setCollectionFourImgUrl] = React.useState(getLS('collection4Image', 'https://images.unsplash.com/photo-1491553895911-0055eca6402d?w=500&h=500&fit=crop'));
 
   const handleSubmitTwo = async (e) => {
     e.preventDefault();
@@ -33,26 +33,26 @@ export default function Admin() {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({ 
-        campaignName,
-        mainHeader,
-        subHeader,
-        heroBackground,
+        nameOfCampaign,
+        mainHeading,
+        subheading,
+        backgroundImageUrl,
         saleBadge,
         saleHeading,
         saleDescription,
-        collectionsTitle,
-        collection1Name,
-        collection1Desc,
-        collection1Image,
-        collection2Name,
-        collection2Desc,
-        collection2Image,
-        collection3Name,
-        collection3Desc,
-        collection3Image,
-        collection4Name,
-        collection4Desc,
-        collection4Image
+        sectionTitle,
+        collectionOneName,
+        collectionOneDescription,
+        collectionOneImgUrl,
+        collectionTwoName,
+        collectionTwoDescription,
+        collectionTwoImgUrl,
+        collectionThreeName,
+        collectionThreeDescription,
+        collectionThreeImgUrl,
+        collectionFourName,
+        collectionFourDescription,
+        collectionFourImgUrl
        }),
     });
 
@@ -118,8 +118,8 @@ export default function Admin() {
                 <input 
                   type="text" 
                   id="campaignName" 
-                  value={campaignName}
-                  onChange={(e) => {setCampaignName(e.target.value)}}
+                  value={nameOfCampaign}
+                  onChange={(e) => {setNameOfCampaign(e.target.value)}}
                   placeholder="Enter campaign name" 
                 />
               </div>
@@ -134,8 +134,8 @@ export default function Admin() {
                 <input 
                   type="text" 
                   id="heroHeading" 
-                  value= {mainHeader}
-                  onChange={(e) => {setMainHeader(e.target.value)}}
+                  value= {mainHeading}
+                  onChange={(e) => {setMainHeading(e.target.value)}}
                   placeholder="Enter hero heading" 
                 />
               </div>
@@ -144,18 +144,18 @@ export default function Admin() {
                 <label htmlFor="heroParagraph">Sub Heading</label>
                 <input 
                   id="heroParagraph" 
-                  onChange={(e) => {setSubHeader(e.target.value)}}
+                  onChange={(e) => {setSubheading(e.target.value)}}
                   placeholder="Enter hero paragraph" 
-                  value={subHeader}
+                  value={subheading}
                 ></input>
               </div>
               <div className="form-group">
                 <label htmlFor="herobackground">Background Image URL</label>
                 <input 
                   id="herobackground" 
-                  onChange={(e) => {setHeroBackground(e.target.value)}}
+                  onChange={(e) => {setBackgroundImageUrl(e.target.value)}}
                   placeholder="Enter background image URL" 
-                  value={heroBackground}
+                  value={backgroundImageUrl}
                 ></input>
               </div>
             </div>
@@ -208,8 +208,8 @@ export default function Admin() {
                   type="text" 
                   id="collectionsTitle" 
                   placeholder="Enter collections section title" 
-                  value={collectionsTitle}
-                  onChange={(e) => {setCollectionsTitle(e.target.value)}}
+                  value={sectionTitle}
+                  onChange={(e) => {setSectionTitle(e.target.value)}}
                 />
               </div>
 
@@ -220,8 +220,8 @@ export default function Admin() {
                     type="text" 
                     id="collection1Name" 
                     placeholder="Enter collection 1 name"
-                    value={collection1Name}
-                    onChange={(e) => {setCollection1Name(e.target.value)}}
+                    value={collectionOneName}
+                    onChange={(e) => {setCollectionOneName(e.target.value)}}
                   />
                 </div>
                 <div className="form-group">
@@ -230,8 +230,8 @@ export default function Admin() {
                     type="text" 
                     id="collection1Desc" 
                     placeholder="Enter collection 1 description"
-                    value={collection1Desc}
-                    onChange={(e) => {setCollection1Desc(e.target.value)}}
+                    value={collectionOneDescription}
+                    onChange={(e) => {setCollectionOneDescription(e.target.value)}}
                   />
                 </div>
                 <div className="form-group">
@@ -240,8 +240,8 @@ export default function Admin() {
                     type="text" 
                     id="collection1Image" 
                     placeholder="Enter image URL"
-                    value={collection1Image}
-                    onChange={(e) => {setCollection1Image(e.target.value)}}
+                    value={collectionOneImgUrl}
+                    onChange={(e) => {setCollectionOneImgUrl(e.target.value)}}
                   />
                 </div>
               </div>
@@ -253,8 +253,8 @@ export default function Admin() {
                     type="text" 
                     id="collection2Name" 
                     placeholder="Enter collection 2 name"
-                    value={collection2Name}
-                    onChange={(e) => {setCollection2Name(e.target.value)}}
+                    value={collectionTwoName}
+                    onChange={(e) => {setCollectionTwoName(e.target.value)}}
                   />
                 </div>
                 <div className="form-group">
@@ -263,8 +263,8 @@ export default function Admin() {
                     type="text" 
                     id="collection2Desc" 
                     placeholder="Enter collection 2 description"
-                    value={collection2Desc}
-                    onChange={(e) => {setCollection2Desc(e.target.value)}}
+                    value={collectionTwoDescription}
+                    onChange={(e) => {setCollectionTwoDescription(e.target.value)}}
                   />
                 </div>
                 <div className="form-group">
@@ -273,8 +273,8 @@ export default function Admin() {
                     type="text" 
                     id="collection2Image" 
                     placeholder="Enter image URL"
-                    value={collection2Image}
-                    onChange={(e) => {setCollection2Image(e.target.value)}}
+                    value={collectionTwoImgUrl}
+                    onChange={(e) => {setCollectionTwoImgUrl(e.target.value)}}
                   />
                 </div>
               </div>
@@ -286,8 +286,8 @@ export default function Admin() {
                     type="text" 
                     id="collection3Name" 
                     placeholder="Enter collection 3 name"
-                    value={collection3Name}
-                    onChange={(e) => {setCollection3Name(e.target.value)}}
+                    value={collectionThreeName}
+                    onChange={(e) => {setCollectionThreeName(e.target.value)}}
                   />
                 </div>
                 <div className="form-group">
@@ -296,8 +296,8 @@ export default function Admin() {
                     type="text" 
                     id="collection3Desc" 
                     placeholder="Enter collection 3 description"
-                    value={collection3Desc}
-                    onChange={(e) => {setCollection3Desc(e.target.value)}}
+                    value={collectionThreeDescription}
+                    onChange={(e) => {setCollectionThreeDescription(e.target.value)}}
                   />
                 </div>
                 <div className="form-group">
@@ -306,8 +306,8 @@ export default function Admin() {
                     type="text" 
                     id="collection3Image" 
                     placeholder="Enter image URL"
-                    value={collection3Image}
-                    onChange={(e) => {setCollection3Image(e.target.value)}}
+                    value={collectionThreeImgUrl}
+                    onChange={(e) => {setCollectionThreeImgUrl(e.target.value)}}
                   />
                 </div>
               </div>
@@ -319,8 +319,8 @@ export default function Admin() {
                     type="text" 
                     id="collection4Name" 
                     placeholder="Enter collection 4 name"
-                    value={collection4Name}
-                    onChange={(e) => {setCollection4Name(e.target.value)}}
+                    value={collectionFourName}
+                    onChange={(e) => {setCollectionFourName(e.target.value)}}
                   />
                 </div>
                 <div className="form-group">
@@ -329,8 +329,8 @@ export default function Admin() {
                     type="text" 
                     id="collection4Desc" 
                     placeholder="Enter collection 4 description"
-                    value={collection4Desc}
-                    onChange={(e) => {setCollection4Desc(e.target.value)}}
+                    value={collectionFourDescription}
+                    onChange={(e) => {setCollectionFourDescription(e.target.value)}}
                   />
                 </div>
                 <div className="form-group">
@@ -339,8 +339,8 @@ export default function Admin() {
                     type="text" 
                     id="collection4Image" 
                     placeholder="Enter image URL"
-                    value={collection4Image}
-                    onChange={(e) => {setCollection4Image(e.target.value)}}
+                    value={collectionFourImgUrl}
+                    onChange={(e) => {setCollectionFourImgUrl(e.target.value)}}
                   />
                 </div>
               </div>

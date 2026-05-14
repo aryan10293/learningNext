@@ -1,6 +1,6 @@
 'use client';
 import './admin.css';
-import getLS from '../../hooks/getLs';
+import { useRouter } from "next/navigation";
 import React, {  useState, useEffect } from 'react';
 import useCampaigns from '../../hooks/getcampagins';
 import getPublishedPage from '../../hooks/getPublisedPage';
@@ -8,10 +8,9 @@ import Dropdown from '../../components/Dropdown';
 
 export default function Admin() {
     const { data:campaignData, isLoading:campaignLoading, error:campaignError } = useCampaigns();
-    const { data: publishedData, isLoading: publishedLoading, error: publishedError } = getPublishedPage();
+    const router = useRouter();
     const [edit, setEdit] = useState(false);
     const [formData, setFormData] = useState(null)
-    const [selectedCampaign, setSelectedCampaign] = useState(null);
 
 // lets change this whole point of attack to be the published page data instead of the campaigns data, 
 // we can use the campaigns data to populate a dropdown of campaigns and then when we select a campaign, 
@@ -27,40 +26,22 @@ export default function Admin() {
     const handleEdit = () => {
       setEdit(!edit);
     }
-
-    const handleMakeNew = () => {
-      setNewCamp(true);
-      setEdit(false);
-    }
     const handleCampaignSelect = (campaign) => {
-      setSelectedCampaign(campaignData.filter(c => c.id === campaign.value)[0]); 
       setFormData(campaignData.filter(c => c.id === campaign.value)[0]) 
     }
+      useEffect(() => {
 
-    useEffect(() => {
-      console.log(formData, "updated")
     }, [formData])
-
-    const [nameOfCampaign, setNameOfCampaign] = React.useState(publishedData ? publishedData[0]?.nameOfCampaign : '');
-    const [mainHeading, setMainHeading] = React.useState(publishedData ? publishedData[0]?.mainheading : '');
-    const [subHeading, setSubheading] = React.useState(publishedData ? publishedData[0]?.subheading : '');
-    const [backgroundImageUrl, setBackgroundImageUrl] = React.useState(publishedData ? publishedData[0]?.backgroundimageurl : '');
-    const [saleBadge, setSaleBadge] = React.useState(publishedData ? publishedData[0]?.salebadge : '');
-    const [saleHeading, setSaleHeading] = React.useState(publishedData ? publishedData[0]?.saleheading : '');
-    const [saleDescription, setSaleDescription] = React.useState(publishedData ? publishedData[0]?.saledescription : '');
-    const [sectionTitle, setSectionTitle] = React.useState(publishedData ? publishedData[0]?.sectiontitle : '');
-    const [collectionOneName, setCollectionOneName] = React.useState(publishedData ? publishedData[0]?.collectiononename : '');
-    const [collectionOneDescription, setCollectionOneDescription] = React.useState(publishedData ? publishedData[0]?.collectiononedescription : '');
-    const [collectionOneImgUrl, setCollectionOneImgUrl] = React.useState(publishedData ? publishedData[0]?.collectiononeimgurl : '');
-    const [collectionTwoName, setCollectionTwoName] = React.useState(publishedData ? publishedData[0]?.collectiontwoname : '');
-    const [collectionTwoDescription, setCollectionTwoDescription] = React.useState(publishedData ? publishedData[0]?.collectiontwodescription : '');
-    const [collectionTwoImgUrl, setCollectionTwoImgUrl] = React.useState(publishedData ? publishedData[0]?.collectiontwoimgurl : '');
-    const [collectionThreeName, setCollectionThreeName] = React.useState(publishedData ? publishedData[0]?.collectionthreename : '');
-    const [collectionThreeDescription, setCollectionThreeDescription] = React.useState(publishedData ? publishedData[0]?.collectionthreedescription : '');
-    const [collectionThreeImgUrl, setCollectionThreeImgUrl] = React.useState(publishedData ? publishedData[0]?.collectionthreeimgurl : '');
-    const [collectionFourName, setCollectionFourName] = React.useState(publishedData ? publishedData[0]?.collectionfourname : '');
-    const [collectionFourDescription, setCollectionFourDescription] = React.useState(publishedData ? publishedData[0]?.collectionfourdescription : '');
-    const [collectionFourImgUrl, setCollectionFourImgUrl] = React.useState(publishedData ? publishedData[0]?.collectionfourimgurl : '');
+    
+    const handlePreview = () => {
+      localStorage.setItem(
+        "formData",
+        JSON.stringify(formData)
+      );
+      router.push("/preview")
+      // we can use local storage to store the data from the form and then we can access that data from the preview page and we can use that data to populate the preview page with the new data from the form, 
+      // this way we can easily preview the changes before we publish them,
+    }
 
     if (campaignLoading) return <div>Loading...</div>;
     if (campaignError) return <div>Something went wrong</div>;
@@ -90,7 +71,7 @@ export default function Admin() {
             <li><a href="/home">Home</a></li>
             <li><a href="#dashboard">Dashboard</a></li>
             <li><a href="#content">Content</a></li>
-            <li><a href="#settings">Settings</a></li>
+            <li><a href="/preview">preview</a></li>
           </ul>
           <div className="nav-icons">
             <span>🔔</span>
@@ -478,7 +459,7 @@ export default function Admin() {
             <div className="form-actions">
               <button type="submit" className="btn btn-primary">Save Changes</button>
               <button type="reset" className="btn btn-secondary">Reset Form</button>
-              <button type="button" className="btn btn-preview">Preview</button>
+              <button type="button" onClick={handlePreview} className="btn btn-preview">Preview</button>
             </div>
           </form>
         </div>

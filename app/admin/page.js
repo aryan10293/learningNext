@@ -70,34 +70,13 @@ export default function Admin() {
 
   const handleSubmitTwo = async (e) => {
     e.preventDefault();
-    console.log(nameOfCampaign)
-    const request = await fetch("http://localhost:2050/create-section", {
+    const urlString = edit ? "http://localhost:2050/edit-campaign" : "http://localhost:2050/create-section"
+    const request = await fetch(urlString, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-    body: JSON.stringify({ 
-        nameOfCampaign: nameOfCampaign || publishedData[0]?.nameofcampaign,
-        mainHeading: mainHeading || publishedData[0]?.mainheading,
-        subHeading: subHeading || publishedData[0]?.subheading,
-        backgroundImageUrl: backgroundImageUrl || publishedData[0]?.backgroundimageurl,
-        saleBadge: saleBadge || publishedData[0]?.salebadge,
-        saleHeading: saleHeading || publishedData[0]?.saleheading,
-        saleDescription: saleDescription || publishedData[0]?.saledescription,
-        sectionTitle: sectionTitle || publishedData[0]?.sectiontitle,
-        collectionOneName: collectionOneName || publishedData[0]?.collectiononename,
-        collectionOneDescription: collectionOneDescription || publishedData[0]?.collectiononedescription,
-        collectionOneImgUrl: collectionOneImgUrl || publishedData[0]?.collectiononeimgurl,
-        collectionTwoName: collectionTwoName || publishedData[0]?.collectiontwoname,
-        collectionTwoDescription: collectionTwoDescription || publishedData[0]?.collectiontwodescription,
-        collectionTwoImgUrl: collectionTwoImgUrl || publishedData[0]?.collectiontwoimgurl,
-        collectionThreeName: collectionThreeName || publishedData[0]?.collectionthreename,
-        collectionThreeDescription: collectionThreeDescription || publishedData[0]?.collectionthreedescription,
-        collectionThreeImgUrl: collectionThreeImgUrl || publishedData[0]?.collectionthreeimgurl,
-        collectionFourName: collectionFourName || publishedData[0]?.collectionfourname,
-        collectionFourDescription: collectionFourDescription || publishedData[0]?.collectionfourdescription,
-        collectionFourImgUrl: collectionFourImgUrl || publishedData[0]?.collectionfourimgurl
-      })
+    body: JSON.stringify(formData)
     });
     const data = await request.json();
     console.log(data);
@@ -155,7 +134,12 @@ export default function Admin() {
                   type="text" 
                   id="campaignName" 
                   value={formData ? formData.nameofcampaign : ''}
-                  onChange={(e) => {setNameOfCampaign(e.target.value)}}
+                  onChange={(e) => {
+                    setFormData(prev => ({
+                        ...prev,
+                        nameofcampaign: e.target.value
+                    }))
+                  }}
                   placeholder="Enter campaign name" 
                 />
               </div>
@@ -170,8 +154,13 @@ export default function Admin() {
                 <input 
                   type="text" 
                   id="heroHeading" 
-                  value= {mainHeading || publishedData[0]?.mainheading}
-                  onChange={(e) => {setMainHeading(e.target.value)}}
+                  value= {formData ? formData.mainheading : ''}
+                  onChange={(e) => {
+                    setFormData(prev => ({
+                        ...prev,
+                        mainheading: e.target.value
+                    }))
+                  }}
                   placeholder="Enter hero heading" 
                 />
               </div>
@@ -180,18 +169,24 @@ export default function Admin() {
                 <label htmlFor="heroParagraph">Sub Heading</label>
                 <input 
                   id="heroParagraph" 
-                  onChange={(e) => {setSubheading(e.target.value)}}
+                  onChange={(e) => {setFormData(prev => ({
+                    ...prev,
+                    subheading: e.target.value
+                  }))}}
                   placeholder="Enter hero paragraph" 
-                  value={subHeading || publishedData[0]?.subheading}
+                  value={formData ? formData.subheading : ''}
                 ></input>
               </div>
               <div className="form-group">
                 <label htmlFor="herobackground">Background Image URL</label>
                 <input 
                   id="herobackground" 
-                  onChange={(e) => {setBackgroundImageUrl(e.target.value)}}
+                  onChange={(e) => {setFormData(prev => ({
+                    ...prev,
+                    backgroundimageurl: e.target.value
+                  }))}}
                   placeholder="Enter background image URL" 
-                  value={backgroundImageUrl || publishedData[0]?.backgroundimageurl}
+                  value={formData ? formData.backgroundimageurl : ''}
                 ></input>
               </div>
             </div>
@@ -206,8 +201,11 @@ export default function Admin() {
                   type="text" 
                   id="saleBadge" 
                   placeholder="Enter sale badge text" 
-                  value={saleBadge || publishedData[0]?.salebadge}
-                  onChange={(e) => {setSaleBadge(e.target.value)}}
+                  value={formData ? formData.salebadge : ''}
+                  onChange={(e) => {setFormData(prev => ({
+                    ...prev,
+                    salebadge: e.target.value
+                  }))}}
                 />
               </div>
 
@@ -218,8 +216,11 @@ export default function Admin() {
                   type="text" 
                   id="saleHeading" 
                   placeholder="Enter sale heading" 
-                  value={saleHeading || publishedData[0]?.saleheading}
-                  onChange={(e) => {setSaleHeading(e.target.value)}}
+                  value={formData ? formData.saleheading : ''}
+                  onChange={(e) => {setFormData(prev => ({
+                    ...prev,
+                    saleheading: e.target.value
+                  }))}}
                 />
               </div>
 
@@ -229,8 +230,11 @@ export default function Admin() {
                   id="saleParagraph" 
                   rows="3"
                   placeholder="Enter sale description" 
-                  value={saleDescription || publishedData[0]?.saledescription}
-                  onChange={(e) => {setSaleDescription(e.target.value)}}
+                  value={formData ? formData.saledescription : ''}
+                  onChange={(e) => {setFormData(prev => ({
+                    ...prev,
+                    saledescription: e.target.value
+                  }))}}
                 ></textarea>
               </div>
             </div>
@@ -245,8 +249,11 @@ export default function Admin() {
                   type="text" 
                   id="collectionsTitle" 
                   placeholder="Enter collections section title" 
-                  value={sectionTitle || publishedData[0]?.sectiontitle}
-                  onChange={(e) => {setSectionTitle(e.target.value)}}
+                  value={formData ? formData.sectiontitle : ''}
+                  onChange={(e) => {setFormData(prev => ({
+                    ...prev,
+                    sectiontitle: e.target.value
+                  }))}}
                 />
               </div>
 
@@ -257,8 +264,11 @@ export default function Admin() {
                     type="text" 
                     id="collection1Name" 
                     placeholder="Enter collection 1 name"
-                    value={collectionOneName || publishedData[0]?.collectiononename}
-                    onChange={(e) => {setCollectionOneName(e.target.value)}}
+                    value={formData ? formData.collectiononename : ''}
+                    onChange={(e) => {setFormData(prev => ({
+                      ...prev,
+                      collectiononename: e.target.value
+                    }))}}
                   />
                 </div>
                 <div className="form-group">
@@ -267,8 +277,11 @@ export default function Admin() {
                     type="text" 
                     id="collection1Desc" 
                     placeholder="Enter collection 1 description"
-                    value={collectionOneDescription || publishedData[0]?.collectiononedescription}
-                    onChange={(e) => {setCollectionOneDescription(e.target.value)}}
+                    value={formData ? formData.collectiononedescription : ''}
+                    onChange={(e) => {setFormData(prev => ({
+                      ...prev,
+                      collectiononedescription: e.target.value
+                    }))}}
                   />
                 </div>
                 <div className="form-group">
@@ -277,8 +290,11 @@ export default function Admin() {
                     type="text" 
                     id="collection1Image" 
                     placeholder="Enter image URL"
-                    value={collectionOneImgUrl  || publishedData[0]?.collectiononeimgurl}
-                    onChange={(e) => {setCollectionOneImgUrl(e.target.value)}}
+                    value={formData ? formData.collectiononeimgurl : ''}
+                    onChange={(e) => {setFormData(prev => ({
+                      ...prev,
+                      collectiononeimgurl: e.target.value
+                    }))}}
                   />
                 </div>
               </div>
@@ -290,8 +306,11 @@ export default function Admin() {
                     type="text" 
                     id="collection2Name" 
                     placeholder="Enter collection 2 name"
-                    value={collectionTwoName || publishedData[0]?.collectiontwoname}
-                    onChange={(e) => {setCollectionTwoName(e.target.value)}}
+                    value={formData ? formData.collectiontwoname : ''}
+                    onChange={(e) => {setFormData(prev => ({
+                      ...prev,
+                      collectiontwoname: e.target.value
+                    }))}}
                   />
                 </div>
                 <div className="form-group">
@@ -300,8 +319,11 @@ export default function Admin() {
                     type="text" 
                     id="collection2Desc" 
                     placeholder="Enter collection 2 description"
-                    value={collectionTwoDescription || publishedData[0]?.collectiontwodescription}
-                    onChange={(e) => {setCollectionTwoDescription(e.target.value)}}
+                    value={formData ? formData.collectiontwodescription : ''}
+                    onChange={(e) => {setFormData(prev => ({
+                      ...prev,
+                      collectiontwodescription: e.target.value
+                    }))}}
                   />
                 </div>
                 <div className="form-group">
@@ -310,8 +332,11 @@ export default function Admin() {
                     type="text" 
                     id="collection2Image" 
                     placeholder="Enter image URL"
-                    value={collectionTwoImgUrl || publishedData[0]?.collectiontwoimgurl}
-                    onChange={(e) => {setCollectionTwoImgUrl(e.target.value)}}
+                    value={formData ? formData.collectiontwoimgurl : ''}
+                    onChange={(e) => {setFormData(prev => ({
+                      ...prev,
+                      collectiontwoimgurl: e.target.value
+                    }))}}
                   />
                 </div>
               </div>
@@ -323,8 +348,11 @@ export default function Admin() {
                     type="text" 
                     id="collection3Name" 
                     placeholder="Enter collection 3 name"
-                    value={collectionThreeName || publishedData[0]?.collectionthreename}
-                    onChange={(e) => {setCollectionThreeName(e.target.value)}}
+                    value={formData ? formData.collectionthreename : ''}
+                    onChange={(e) => {setFormData(prev => ({
+                      ...prev,
+                      collectionthreename: e.target.value
+                    }))}}
                   />
                 </div>
                 <div className="form-group">
@@ -333,8 +361,11 @@ export default function Admin() {
                     type="text" 
                     id="collection3Desc" 
                     placeholder="Enter collection 3 description"
-                    value={collectionThreeDescription || publishedData[0]?.collectionthreedescription}
-                    onChange={(e) => {setCollectionThreeDescription(e.target.value)}}
+                    value={formData ? formData.collectionthreedescription : ''}
+                    onChange={(e) => {setFormData(prev => ({
+                      ...prev,
+                      collectionthreedescription: e.target.value
+                    }))}}
                   />
                 </div>
                 <div className="form-group">
@@ -343,8 +374,11 @@ export default function Admin() {
                     type="text" 
                     id="collection3Image" 
                     placeholder="Enter image URL"
-                    value={collectionThreeImgUrl || publishedData[0]?.collectionthreeimgurl}
-                    onChange={(e) => {setCollectionThreeImgUrl(e.target.value)}}
+                    value={formData ? formData.collectionthreeimgurl : ''}
+                    onChange={(e) => {setFormData(prev => ({
+                      ...prev,
+                      collectionthreeimgurl: e.target.value
+                    }))}}
                   />
                 </div>
               </div>
@@ -356,8 +390,11 @@ export default function Admin() {
                     type="text" 
                     id="collection4Name" 
                     placeholder="Enter collection 4 name"
-                    value={collectionFourName || publishedData[0]?.collectionfourname}
-                    onChange={(e) => {setCollectionFourName(e.target.value)}}
+                    value={formData ? formData.collectionfourname : ''}
+                    onChange={(e) => {setFormData(prev => ({
+                      ...prev,
+                      collectionfourname: e.target.value
+                    }))}}
                   />
                 </div>
                 <div className="form-group">
@@ -366,8 +403,11 @@ export default function Admin() {
                     type="text" 
                     id="collection4Desc" 
                     placeholder="Enter collection 4 description"
-                    value={collectionFourDescription || publishedData[0]?.collectionfourdescription}
-                    onChange={(e) => {setCollectionFourDescription(e.target.value)}}
+                    value={formData ? formData.collectionfourdescription : ''}
+                    onChange={(e) => {setFormData(prev => ({
+                      ...prev,
+                      collectionfourdescription: e.target.value
+                    }))}}
                   />
                 </div>
                 <div className="form-group">
@@ -376,8 +416,11 @@ export default function Admin() {
                     type="text" 
                     id="collection4Image" 
                     placeholder="Enter image URL"
-                    value={collectionFourImgUrl || publishedData[0]?.collectionfourimgurl}
-                    onChange={(e) => {setCollectionFourImgUrl(e.target.value)}}
+                    value={formData ? formData.collectionfourimgurl : ''}
+                    onChange={(e) => {setFormData(prev => ({
+                      ...prev,
+                      collectionfourimgurl: e.target.value
+                    }))}}
                   />
                 </div>
               </div>

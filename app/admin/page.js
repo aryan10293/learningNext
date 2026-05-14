@@ -1,15 +1,47 @@
 'use client';
 import './admin.css';
 import getLS from '../../hooks/getLs';
-import React from 'react';
+import React, {  useState, useEffect } from 'react';
 import useCampaigns from '../../hooks/getcampagins';
 import getPublishedPage from '../../hooks/getPublisedPage';
+import Dropdown from '../../components/Dropdown';
 
 export default function Admin() {
-    const { data, isLoading, error } = useCampaigns();
+    const { data:campaignData, isLoading:campaignLoading, error:campaignError } = useCampaigns();
     const { data: publishedData, isLoading: publishedLoading, error: publishedError } = getPublishedPage();
-   
+    const [edit, setEdit] = useState(false);
+    const [newCamp, setNewCamp] = useState(false);
+    const [formData, setFormData] = useState(null)
+    const [selectedCampaign, setSelectedCampaign] = useState(null);
 
+// lets change this whole point of attack to be the published page data instead of the campaigns data, 
+// we can use the campaigns data to populate a dropdown of campaigns and then when we select a campaign, 
+// we can populate the form with the data from that campaign, and then when we submit the form, 
+// we can send a request to update that campaign with the new data from the form, 
+// this way we can have multiple campaigns and we can easily switch between them and edit them without having to worry about creating new campaigns or deleting old ones, 
+// we can just update the existing ones with new data, 
+// this will also allow us to keep track of the history of changes for each campaign and we can easily revert back to previous versions if needed, 
+// so let's start by creating a dropdown of campaigns and populating it with the data from the campaigns query, 
+// and then when we select a campaign, we can populate the form with the data from that campaign, 
+// and then when we submit the form, we can send a request to update that campaign with the new data from the form
+
+    const handleEdit = () => {
+      setEdit(true);
+      setNewCamp(false);
+    }
+
+    const handleMakeNew = () => {
+      setNewCamp(true);
+      setEdit(false);
+    }
+    const handleCampaignSelect = (campaign) => {
+      setSelectedCampaign(campaignData.filter(c => c.id === campaign.value)[0]); 
+      setFormData(campaignData.filter(c => c.id === campaign.value)[0]) 
+    }
+
+    useEffect(() => {
+      console.log(formData, "updated")
+    }, [formData])
 
     const [nameOfCampaign, setNameOfCampaign] = React.useState(publishedData ? publishedData[0]?.nameOfCampaign : '');
     const [mainHeading, setMainHeading] = React.useState(publishedData ? publishedData[0]?.mainheading : '');
@@ -32,8 +64,9 @@ export default function Admin() {
     const [collectionFourDescription, setCollectionFourDescription] = React.useState(publishedData ? publishedData[0]?.collectionfourdescription : '');
     const [collectionFourImgUrl, setCollectionFourImgUrl] = React.useState(publishedData ? publishedData[0]?.collectionfourimgurl : '');
 
-    if (isLoading) return <div>Loading...</div>;
-    if (error) return <div>Something went wrong</div>;
+    if (campaignLoading) return <div>Loading...</div>;
+    if (campaignError) return <div>Something went wrong</div>;
+
 
   const handleSubmitTwo = async (e) => {
     e.preventDefault();
@@ -93,6 +126,23 @@ export default function Admin() {
       {/* Main Form Container */}
       <section className="form-section">
         <div className="form-wrapper">
+          <div className="dropdown-wrapper"  style={{marginBottom: '30px', display: "flex", gap: '15px', alignItems: 'flex-end'}}>
+            <div style={{flex: 1, display: edit ? 'block' : 'none'}}>
+              <label style={{display: 'block', marginBottom: '10px', fontWeight: '600', fontSize: '14px'}}>Select Campaign</label>
+              <Dropdown
+                items={campaignData && campaignData.map(campaign => ({
+                  label: campaign.nameofcampaign || 'Untitled Campaign',
+                  value: campaign.id
+                }))}
+                placeholder="Choose a campaign"
+                onSelect={(campaign) => {
+                  handleCampaignSelect(campaign)
+                } }
+              />
+            </div>
+            <button onClick={handleEdit} type="button" className="btn btn-edit">Edit</button>
+            <button onClick={handleMakeNew} type="button" className="btn btn-new">Make New Campaign</button>
+          </div>
           <form onSubmit={handleSubmitTwo} className="product-form">
             
             {/* Campaign Name Section */}
@@ -104,7 +154,7 @@ export default function Admin() {
                 <input 
                   type="text" 
                   id="campaignName" 
-                  value={nameOfCampaign || publishedData[0]?.nameofcampaign }
+                  value={formData ? formData.nameofcampaign : ''}
                   onChange={(e) => {setNameOfCampaign(e.target.value)}}
                   placeholder="Enter campaign name" 
                 />

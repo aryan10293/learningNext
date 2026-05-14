@@ -1,7 +1,6 @@
 "use client";
 import './home.css';
 import React from 'react';
-import  useLocalStorage  from '../../hooks/localStorage';
 import usePublishedPage from '../../hooks/getPublisedPage';
 
 export default function Home() {
@@ -11,16 +10,6 @@ const { data, isLoading, error } = usePublishedPage();
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>Something went wrong</div>;
 
-
-    const handleTest = async () => {
-      try {
-        const response = await fetch("http://localhost:2050/test");
-        const data = await response.json();
-        console.log(data);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    }
   return (
     <div className="activewear-landing">
       {/* Navigation */}
@@ -30,7 +19,7 @@ const { data, isLoading, error } = usePublishedPage();
           <ul className="nav-links">
           {/* <li><a href="#new">New Arrivals</a></li> */}
             <li><a href="/admin">Admin</a></li>
-            <li><button onClick={handleTest}>testing</button></li>
+            <li><button>testing</button></li>
             <li><a href="#about">About</a></li>
             <li><a href="#contact">Contact</a></li>
           </ul>

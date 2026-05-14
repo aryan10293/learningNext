@@ -2,88 +2,74 @@
 import './admin.css';
 import getLS from '../../hooks/getLs';
 import React from 'react';
+import useCampaigns from '../../hooks/getcampagins';
+import getPublishedPage from '../../hooks/getPublisedPage';
 
 export default function Admin() {
-  const [nameOfCampaign, setNameOfCampaign] = React.useState(getLS('campaignName', 'Campaign 2025'));
-  const [mainHeading, setMainHeading] = React.useState(getLS('mainHeading', 'Move With Purpose'));
-  const [subheading, setSubheading] = React.useState(getLS('subHeader', 'Premium activewear designed for your lifestyle'));
-  const [backgroundImageUrl, setBackgroundImageUrl] = React.useState(getLS('heroBackground', 'https://cdn.mos.cms.futurecdn.net/ufy8gy6x2tRtG4jYZLtVeF-1920-80.jpg.webp'));
-  const [saleBadge, setSaleBadge] = React.useState(getLS('saleBadge', 'FLASH SALE'));
-  const [saleHeading, setSaleHeading] = React.useState(getLS('saleHeading', 'Up to 40% Off'));
-  const [saleDescription, setSaleDescription] = React.useState(getLS('saleDescription', 'Limited time offer on select collections'));
-  const [sectionTitle, setSectionTitle] = React.useState(getLS('sectionTitle', 'Featured Collections'));
-  const [collectionOneName, setCollectionOneName] = React.useState(getLS('collection1Name', "Women's Essentials"));
-  const [collectionOneDescription, setCollectionOneDescription] = React.useState(getLS('collection1Desc', 'Timeless basics for every day'));
-  const [collectionTwoName, setCollectionTwoName] = React.useState(getLS('collection2Name', "Men's Performance"));
-  const [collectionTwoDescription, setCollectionTwoDescription] = React.useState(getLS('collection2Desc', 'High-performance gear for athletes'));
-  const [collectionThreeName, setCollectionThreeName] = React.useState(getLS('collection3Name', "Sustainable Styles"));
-  const [collectionThreeDescription, setCollectionThreeDescription] = React.useState(getLS('collection3Desc', 'Eco-friendly activewear made from recycled materials'));
-  const [collectionFourName, setCollectionFourName] = React.useState(getLS('collection4Name', "Limited Edition"));
-  const [collectionFourDescription, setCollectionFourDescription] = React.useState(getLS('collection4Desc', 'Exclusive drops and collaborations'));
-  const [collectionOneImgUrl, setCollectionOneImgUrl] = React.useState(getLS('collection1Image', 'https://comfrt.com/fast-image/comfrt/files/1_b6d483fd-43ed-4e9e-b456-8f916457862a.jpg?v=1761764267'));
-  const [collectionTwoImgUrl, setCollectionTwoImgUrl] = React.useState(getLS('collection2Image', 'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=500&h=500&fit=crop'));
-  const [collectionThreeImgUrl, setCollectionThreeImgUrl] = React.useState(getLS('collection3Image', 'https://alignwithglow.com/wp-content/uploads/2024/09/yoga-wellness-mindfulness-syracuse-ny.jpg'));
-  const [collectionFourImgUrl, setCollectionFourImgUrl] = React.useState(getLS('collection4Image', 'https://images.unsplash.com/photo-1491553895911-0055eca6402d?w=500&h=500&fit=crop'));
+    const { data, isLoading, error } = useCampaigns();
+    const { data: publishedData, isLoading: publishedLoading, error: publishedError } = getPublishedPage();
+   
+
+
+    const [nameOfCampaign, setNameOfCampaign] = React.useState(publishedData ? publishedData[0]?.nameOfCampaign : '');
+    const [mainHeading, setMainHeading] = React.useState(publishedData ? publishedData[0]?.mainheading : '');
+    const [subHeading, setSubheading] = React.useState(publishedData ? publishedData[0]?.subheading : '');
+    const [backgroundImageUrl, setBackgroundImageUrl] = React.useState(publishedData ? publishedData[0]?.backgroundimageurl : '');
+    const [saleBadge, setSaleBadge] = React.useState(publishedData ? publishedData[0]?.salebadge : '');
+    const [saleHeading, setSaleHeading] = React.useState(publishedData ? publishedData[0]?.saleheading : '');
+    const [saleDescription, setSaleDescription] = React.useState(publishedData ? publishedData[0]?.saledescription : '');
+    const [sectionTitle, setSectionTitle] = React.useState(publishedData ? publishedData[0]?.sectiontitle : '');
+    const [collectionOneName, setCollectionOneName] = React.useState(publishedData ? publishedData[0]?.collectiononename : '');
+    const [collectionOneDescription, setCollectionOneDescription] = React.useState(publishedData ? publishedData[0]?.collectiononedescription : '');
+    const [collectionOneImgUrl, setCollectionOneImgUrl] = React.useState(publishedData ? publishedData[0]?.collectiononeimgurl : '');
+    const [collectionTwoName, setCollectionTwoName] = React.useState(publishedData ? publishedData[0]?.collectiontwoname : '');
+    const [collectionTwoDescription, setCollectionTwoDescription] = React.useState(publishedData ? publishedData[0]?.collectiontwodescription : '');
+    const [collectionTwoImgUrl, setCollectionTwoImgUrl] = React.useState(publishedData ? publishedData[0]?.collectiontwoimgurl : '');
+    const [collectionThreeName, setCollectionThreeName] = React.useState(publishedData ? publishedData[0]?.collectionthreename : '');
+    const [collectionThreeDescription, setCollectionThreeDescription] = React.useState(publishedData ? publishedData[0]?.collectionthreedescription : '');
+    const [collectionThreeImgUrl, setCollectionThreeImgUrl] = React.useState(publishedData ? publishedData[0]?.collectionthreeimgurl : '');
+    const [collectionFourName, setCollectionFourName] = React.useState(publishedData ? publishedData[0]?.collectionfourname : '');
+    const [collectionFourDescription, setCollectionFourDescription] = React.useState(publishedData ? publishedData[0]?.collectionfourdescription : '');
+    const [collectionFourImgUrl, setCollectionFourImgUrl] = React.useState(publishedData ? publishedData[0]?.collectionfourimgurl : '');
+
+    if (isLoading) return <div>Loading...</div>;
+    if (error) return <div>Something went wrong</div>;
 
   const handleSubmitTwo = async (e) => {
     e.preventDefault();
+    console.log(nameOfCampaign)
     const request = await fetch("http://localhost:2050/create-section", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ 
-        nameOfCampaign,
-        mainHeading,
-        subheading,
-        backgroundImageUrl,
-        saleBadge,
-        saleHeading,
-        saleDescription,
-        sectionTitle,
-        collectionOneName,
-        collectionOneDescription,
-        collectionOneImgUrl,
-        collectionTwoName,
-        collectionTwoDescription,
-        collectionTwoImgUrl,
-        collectionThreeName,
-        collectionThreeDescription,
-        collectionThreeImgUrl,
-        collectionFourName,
-        collectionFourDescription,
-        collectionFourImgUrl
-       }),
+    body: JSON.stringify({ 
+        nameOfCampaign: nameOfCampaign || publishedData[0]?.nameofcampaign,
+        mainHeading: mainHeading || publishedData[0]?.mainheading,
+        subHeading: subHeading || publishedData[0]?.subheading,
+        backgroundImageUrl: backgroundImageUrl || publishedData[0]?.backgroundimageurl,
+        saleBadge: saleBadge || publishedData[0]?.salebadge,
+        saleHeading: saleHeading || publishedData[0]?.saleheading,
+        saleDescription: saleDescription || publishedData[0]?.saledescription,
+        sectionTitle: sectionTitle || publishedData[0]?.sectiontitle,
+        collectionOneName: collectionOneName || publishedData[0]?.collectiononename,
+        collectionOneDescription: collectionOneDescription || publishedData[0]?.collectiononedescription,
+        collectionOneImgUrl: collectionOneImgUrl || publishedData[0]?.collectiononeimgurl,
+        collectionTwoName: collectionTwoName || publishedData[0]?.collectiontwoname,
+        collectionTwoDescription: collectionTwoDescription || publishedData[0]?.collectiontwodescription,
+        collectionTwoImgUrl: collectionTwoImgUrl || publishedData[0]?.collectiontwoimgurl,
+        collectionThreeName: collectionThreeName || publishedData[0]?.collectionthreename,
+        collectionThreeDescription: collectionThreeDescription || publishedData[0]?.collectionthreedescription,
+        collectionThreeImgUrl: collectionThreeImgUrl || publishedData[0]?.collectionthreeimgurl,
+        collectionFourName: collectionFourName || publishedData[0]?.collectionfourname,
+        collectionFourDescription: collectionFourDescription || publishedData[0]?.collectionfourdescription,
+        collectionFourImgUrl: collectionFourImgUrl || publishedData[0]?.collectionfourimgurl
+      })
     });
-
     const data = await request.json();
-    alert(data.message);
+    console.log(data);
   }
 
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
-  //   localStorage.setItem('mainHeader', mainHeader);
-  //   localStorage.setItem('subHeader', subHeader);
-  //   localStorage.setItem('heroBackground', heroBackground);
-  //   localStorage.setItem('saleBadge', saleBadge);
-  //   localStorage.setItem('saleHeading', saleHeading);
-  //   localStorage.setItem('saleDescription', saleDescription);
-  //   localStorage.setItem('collectionsTitle', collectionsTitle);
-  //   localStorage.setItem('collection1Name', collection1Name);
-  //   localStorage.setItem('collection1Desc', collection1Desc);
-  //   localStorage.setItem('collection1Image', collection1Image);
-  //   localStorage.setItem('collection2Name', collection2Name);
-  //   localStorage.setItem('collection2Desc', collection2Desc);
-  //   localStorage.setItem('collection2Image', collection2Image);
-  //   localStorage.setItem('collection3Name', collection3Name);
-  //   localStorage.setItem('collection3Desc', collection3Desc);
-  //   localStorage.setItem('collection3Image', collection3Image);
-  //   localStorage.setItem('collection4Name', collection4Name);
-  //   localStorage.setItem('collection4Desc', collection4Desc);
-  //   localStorage.setItem('collection4Image', collection4Image);
-
-  //   alert('Changes saved successfully!');
-  // }
   return (
     <div className="admin-container">
       {/* Navigation */}
@@ -118,7 +104,7 @@ export default function Admin() {
                 <input 
                   type="text" 
                   id="campaignName" 
-                  value={nameOfCampaign}
+                  value={nameOfCampaign || publishedData[0]?.nameofcampaign }
                   onChange={(e) => {setNameOfCampaign(e.target.value)}}
                   placeholder="Enter campaign name" 
                 />
@@ -134,7 +120,7 @@ export default function Admin() {
                 <input 
                   type="text" 
                   id="heroHeading" 
-                  value= {mainHeading}
+                  value= {mainHeading || publishedData[0]?.mainheading}
                   onChange={(e) => {setMainHeading(e.target.value)}}
                   placeholder="Enter hero heading" 
                 />
@@ -146,7 +132,7 @@ export default function Admin() {
                   id="heroParagraph" 
                   onChange={(e) => {setSubheading(e.target.value)}}
                   placeholder="Enter hero paragraph" 
-                  value={subheading}
+                  value={subHeading || publishedData[0]?.subheading}
                 ></input>
               </div>
               <div className="form-group">
@@ -155,7 +141,7 @@ export default function Admin() {
                   id="herobackground" 
                   onChange={(e) => {setBackgroundImageUrl(e.target.value)}}
                   placeholder="Enter background image URL" 
-                  value={backgroundImageUrl}
+                  value={backgroundImageUrl || publishedData[0]?.backgroundimageurl}
                 ></input>
               </div>
             </div>
@@ -170,10 +156,11 @@ export default function Admin() {
                   type="text" 
                   id="saleBadge" 
                   placeholder="Enter sale badge text" 
-                  value={saleBadge}
+                  value={saleBadge || publishedData[0]?.salebadge}
                   onChange={(e) => {setSaleBadge(e.target.value)}}
                 />
               </div>
+
 
               <div className="form-group">
                 <label htmlFor="saleHeading">Sale Heading</label>
@@ -181,7 +168,7 @@ export default function Admin() {
                   type="text" 
                   id="saleHeading" 
                   placeholder="Enter sale heading" 
-                  value={saleHeading}
+                  value={saleHeading || publishedData[0]?.saleheading}
                   onChange={(e) => {setSaleHeading(e.target.value)}}
                 />
               </div>
@@ -192,7 +179,7 @@ export default function Admin() {
                   id="saleParagraph" 
                   rows="3"
                   placeholder="Enter sale description" 
-                  value={saleDescription}
+                  value={saleDescription || publishedData[0]?.saledescription}
                   onChange={(e) => {setSaleDescription(e.target.value)}}
                 ></textarea>
               </div>
@@ -208,7 +195,7 @@ export default function Admin() {
                   type="text" 
                   id="collectionsTitle" 
                   placeholder="Enter collections section title" 
-                  value={sectionTitle}
+                  value={sectionTitle || publishedData[0]?.sectiontitle}
                   onChange={(e) => {setSectionTitle(e.target.value)}}
                 />
               </div>
@@ -220,7 +207,7 @@ export default function Admin() {
                     type="text" 
                     id="collection1Name" 
                     placeholder="Enter collection 1 name"
-                    value={collectionOneName}
+                    value={collectionOneName || publishedData[0]?.collectiononename}
                     onChange={(e) => {setCollectionOneName(e.target.value)}}
                   />
                 </div>
@@ -230,7 +217,7 @@ export default function Admin() {
                     type="text" 
                     id="collection1Desc" 
                     placeholder="Enter collection 1 description"
-                    value={collectionOneDescription}
+                    value={collectionOneDescription || publishedData[0]?.collectiononedescription}
                     onChange={(e) => {setCollectionOneDescription(e.target.value)}}
                   />
                 </div>
@@ -240,7 +227,7 @@ export default function Admin() {
                     type="text" 
                     id="collection1Image" 
                     placeholder="Enter image URL"
-                    value={collectionOneImgUrl}
+                    value={collectionOneImgUrl  || publishedData[0]?.collectiononeimgurl}
                     onChange={(e) => {setCollectionOneImgUrl(e.target.value)}}
                   />
                 </div>
@@ -253,7 +240,7 @@ export default function Admin() {
                     type="text" 
                     id="collection2Name" 
                     placeholder="Enter collection 2 name"
-                    value={collectionTwoName}
+                    value={collectionTwoName || publishedData[0]?.collectiontwoname}
                     onChange={(e) => {setCollectionTwoName(e.target.value)}}
                   />
                 </div>
@@ -263,7 +250,7 @@ export default function Admin() {
                     type="text" 
                     id="collection2Desc" 
                     placeholder="Enter collection 2 description"
-                    value={collectionTwoDescription}
+                    value={collectionTwoDescription || publishedData[0]?.collectiontwodescription}
                     onChange={(e) => {setCollectionTwoDescription(e.target.value)}}
                   />
                 </div>
@@ -273,7 +260,7 @@ export default function Admin() {
                     type="text" 
                     id="collection2Image" 
                     placeholder="Enter image URL"
-                    value={collectionTwoImgUrl}
+                    value={collectionTwoImgUrl || publishedData[0]?.collectiontwoimgurl}
                     onChange={(e) => {setCollectionTwoImgUrl(e.target.value)}}
                   />
                 </div>
@@ -286,7 +273,7 @@ export default function Admin() {
                     type="text" 
                     id="collection3Name" 
                     placeholder="Enter collection 3 name"
-                    value={collectionThreeName}
+                    value={collectionThreeName || publishedData[0]?.collectionthreename}
                     onChange={(e) => {setCollectionThreeName(e.target.value)}}
                   />
                 </div>
@@ -296,7 +283,7 @@ export default function Admin() {
                     type="text" 
                     id="collection3Desc" 
                     placeholder="Enter collection 3 description"
-                    value={collectionThreeDescription}
+                    value={collectionThreeDescription || publishedData[0]?.collectionthreedescription}
                     onChange={(e) => {setCollectionThreeDescription(e.target.value)}}
                   />
                 </div>
@@ -306,7 +293,7 @@ export default function Admin() {
                     type="text" 
                     id="collection3Image" 
                     placeholder="Enter image URL"
-                    value={collectionThreeImgUrl}
+                    value={collectionThreeImgUrl || publishedData[0]?.collectionthreeimgurl}
                     onChange={(e) => {setCollectionThreeImgUrl(e.target.value)}}
                   />
                 </div>
@@ -319,7 +306,7 @@ export default function Admin() {
                     type="text" 
                     id="collection4Name" 
                     placeholder="Enter collection 4 name"
-                    value={collectionFourName}
+                    value={collectionFourName || publishedData[0]?.collectionfourname}
                     onChange={(e) => {setCollectionFourName(e.target.value)}}
                   />
                 </div>
@@ -329,7 +316,7 @@ export default function Admin() {
                     type="text" 
                     id="collection4Desc" 
                     placeholder="Enter collection 4 description"
-                    value={collectionFourDescription}
+                    value={collectionFourDescription || publishedData[0]?.collectionfourdescription}
                     onChange={(e) => {setCollectionFourDescription(e.target.value)}}
                   />
                 </div>
@@ -339,7 +326,7 @@ export default function Admin() {
                     type="text" 
                     id="collection4Image" 
                     placeholder="Enter image URL"
-                    value={collectionFourImgUrl}
+                    value={collectionFourImgUrl || publishedData[0]?.collectionfourimgurl}
                     onChange={(e) => {setCollectionFourImgUrl(e.target.value)}}
                   />
                 </div>
@@ -401,6 +388,7 @@ export default function Admin() {
             <div className="form-actions">
               <button type="submit" className="btn btn-primary">Save Changes</button>
               <button type="reset" className="btn btn-secondary">Reset Form</button>
+              <button type="button" className="btn btn-preview">Preview</button>
             </div>
           </form>
         </div>

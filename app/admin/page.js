@@ -10,7 +10,6 @@ export default function Admin() {
     const { data:campaignData, isLoading:campaignLoading, error:campaignError } = useCampaigns();
     const { data: publishedData, isLoading: publishedLoading, error: publishedError } = getPublishedPage();
     const [edit, setEdit] = useState(false);
-    const [newCamp, setNewCamp] = useState(false);
     const [formData, setFormData] = useState(null)
     const [selectedCampaign, setSelectedCampaign] = useState(null);
 
@@ -26,8 +25,7 @@ export default function Admin() {
 // and then when we submit the form, we can send a request to update that campaign with the new data from the form
 
     const handleEdit = () => {
-      setEdit(true);
-      setNewCamp(false);
+      setEdit(!edit);
     }
 
     const handleMakeNew = () => {
@@ -119,8 +117,7 @@ export default function Admin() {
                 } }
               />
             </div>
-            <button onClick={handleEdit} type="button" className="btn btn-edit">Edit</button>
-            <button onClick={handleMakeNew} type="button" className="btn btn-new">Make New Campaign</button>
+            <button onClick={handleEdit} type="button" className="btn btn-edit">{edit ? 'Make New Campaign' : 'Edit Campaign'}</button>
           </div>
           <form onSubmit={handleSubmitTwo} className="product-form">
             

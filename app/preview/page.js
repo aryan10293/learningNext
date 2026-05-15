@@ -1,18 +1,19 @@
 "use client";
 import '../home/home.css';
 import React from 'react';
-
+import useFormStore from '../../hooks/useFormStore';
 export default function Preview() {
-    const [formData, setFormData] = React.useState(null)
-
-    React.useEffect(() => {
-        const data = JSON.parse(
-            localStorage.getItem("formData")
-        );
-
-        setFormData(data);
-    }, []);
+    //const [formData, setFormData] = React.useState(null)
+    const { formData } = useFormStore();
     console.log(formData)
+    // React.useEffect(() => {
+    //     const data = JSON.parse(
+    //         localStorage.getItem("formData")
+    //     );
+
+    //     setFormData(data);
+    // }, []);
+    // console.log(formData)
   return (
     <div className="activewear-landing">
       {/* Navigation */}

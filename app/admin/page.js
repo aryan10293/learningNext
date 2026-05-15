@@ -1,16 +1,16 @@
 'use client';
 import './admin.css';
 import { useRouter } from "next/navigation";
-import React, {  useState, useEffect } from 'react';
+import React, {  useEffect } from 'react';
 import useCampaigns from '../../hooks/getcampagins';
-import getPublishedPage from '../../hooks/getPublisedPage';
-import Dropdown from '../../components/Dropdown';
+import useFormStore from '../../hooks/useFormStore';
 
 export default function Admin() {
     const { data:campaignData, isLoading:campaignLoading, error:campaignError } = useCampaigns();
     const router = useRouter();
-    const [edit, setEdit] = useState(false);
-    const [formData, setFormData] = useState(null)
+    //const [edit, setEdit] = useState(false);
+    //const [formData, setFormData] = useState(null)
+    const { formData, setFormData, edit, setEdit } = useFormStore();
 
 // lets change this whole point of attack to be the published page data instead of the campaigns data, 
 // we can use the campaigns data to populate a dropdown of campaigns and then when we select a campaign, 
@@ -27,7 +27,7 @@ export default function Admin() {
       setEdit(!edit);
     }
     const handleCampaignSelect = (campaign) => {
-      setFormData(campaignData.filter(c => c.id === campaign.value)[0]) 
+      setFormData(campaignData.filter(c => c.nameofcampaign === campaign)[0]) 
     }
       useEffect(() => {
 
@@ -39,8 +39,6 @@ export default function Admin() {
         JSON.stringify(formData)
       );
       router.push("/preview")
-      // we can use local storage to store the data from the form and then we can access that data from the preview page and we can use that data to populate the preview page with the new data from the form, 
-      // this way we can easily preview the changes before we publish them,
     }
 
     if (campaignLoading) return <div>Loading...</div>;
@@ -87,16 +85,14 @@ export default function Admin() {
           <div className="dropdown-wrapper"  style={{marginBottom: '30px', display: "flex", gap: '15px', alignItems: 'flex-end'}}>
             <div style={{flex: 1, display: edit ? 'block' : 'none'}}>
               <label style={{display: 'block', marginBottom: '10px', fontWeight: '600', fontSize: '14px'}}>Select Campaign</label>
-              <Dropdown
-                items={campaignData && campaignData.map(campaign => ({
-                  label: campaign.nameofcampaign || 'Untitled Campaign',
-                  value: campaign.id
-                }))}
-                placeholder="Choose a campaign"
-                onSelect={(campaign) => {
-                  handleCampaignSelect(campaign)
-                } }
-              />
+              <select value={formData ? formData.nameofcampaign : null} className="simple-dropdown" onChange={(e) => handleCampaignSelect( e.target.value)}>
+                <option value="">Select an campaign</option>
+                {campaignData.map((option, index) => (
+                  <option key={index} value={option.nameofcampaign}>
+                    {option.nameofcampaign}
+                  </option>
+                ))}
+              </select>
             </div>
             <button onClick={handleEdit} type="button" className="btn btn-edit">{edit ? 'Make New Campaign' : 'Edit Campaign'}</button>
           </div>

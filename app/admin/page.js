@@ -25,12 +25,17 @@ export default function Admin() {
 
     const handleEdit = () => {
       setEdit(!edit);
+      console.log( "edit in handleEdit")
+      if(edit === false){
+        setFormData(null)
+        console.log('this should be null', formData)
+      }
     }
     const handleCampaignSelect = (campaign) => {
       setFormData(campaignData.filter(c => c.nameofcampaign === campaign)[0]) 
     }
       useEffect(() => {
-
+        console.log(formData, "formData in useEffect")
     }, [formData])
     
     const handlePreview = () => {

@@ -14,7 +14,8 @@ const useFormStore = create((set) => ({
     
   setEdit: () =>
     set((state) => ({
-      edit: !state.edit
+      edit: !state.edit,
+      formData: state.edit ? null : state.formData
     }))
 }));
 

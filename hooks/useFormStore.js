@@ -1,7 +1,33 @@
 import { create } from "zustand";
+    const emptyForm = {
+      nameofcampaign: "",
+      mainheading: "",
+      subheading: "",
+      backgroundimageurl: "",
+      salebadge: "",
+      saleheading: "",
+      saledescription: "",
+      sectiontitle: "",
+
+      collectiononename: "",
+      collectiononedescription: "",
+      collectiononeimgurl: "",
+
+      collectiontwoname: "",
+      collectiontwodescription: "",
+      collectiontwoimgurl: "",
+
+      collectionthreename: "",
+      collectionthreedescription: "",
+      collectionthreeimgurl: "",
+
+      collectionfourname: "",
+      collectionfourdescription: "",
+      collectionfourimgurl: ""
+    };
 
 const useFormStore = create((set) => ({
-  formData: {},
+  formData: emptyForm,
   edit: false,
 
   setFormData: (data) =>

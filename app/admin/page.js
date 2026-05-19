@@ -476,8 +476,7 @@ export default function Admin() {
 
             {/* Form Actions */}
             <div className="form-actions">
-              <button type="submit" className="btn btn-primary">Save Changes</button>
-              <button type="reset" className="btn btn-secondary">Reset Form</button>
+             {/* <button type="submit" className="btn btn-primary">Save Changes</button>*/}
               <button type="button" onClick={handlePreview} className="btn btn-preview">Preview</button>
             </div>
           </form>
